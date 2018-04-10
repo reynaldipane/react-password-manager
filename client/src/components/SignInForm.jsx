@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { BrowserRouter, Link } from 'react-router-dom';
 import { connect }from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { signInUser } from '../redux/signin/signin.action';
 
-class SignInForm extends Component {
+export class SignInForm extends Component {
   constructor () {
     super()
     this.state = {

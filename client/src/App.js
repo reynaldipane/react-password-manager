@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import SignInForm from './components/SignInForm';
 import SignUpForm from './components/SignUpForm';
 import Dashboard from './components/Dashboard';
 
-class App extends Component {
+export class App extends Component {
+  PrivateDashboard = ({component: Component, ...rest}) => (
+    <Route {...rest} render={(props) => (
+      this.props.userData.userToken
+      ? <Component {...props}/>
+      : <Redirect to='/'/>
+    )} />
+  )
+
   render() {
     return (
       <BrowserRouter>
@@ -14,7 +22,7 @@ class App extends Component {
         <Switch>
           <Route exact path='/' component={ SignInForm }></Route>
           <Route path='/signup' component={ SignUpForm }></Route>
-          <Route path='/dashboard' component={ Dashboard }></Route>
+          <this.PrivateDashboard path='/dashboard' component={ Dashboard }></this.PrivateDashboard>
         </Switch>
       </div>
       </BrowserRouter>
